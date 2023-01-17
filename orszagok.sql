@@ -232,24 +232,87 @@ SELECT "______________________________________________";
 
 --Mennyi a váltószáma az aprópénznek azokban az országokban, ahol nem 100?
 SELECT "Mennyi a váltószáma az aprópénznek azokban az országokban, ahol nem 100? ";
-SELECT Valtopenz FROM orszagok WHERE Valtopenz NOT LIKE '%100%';
+SELECT Valtopenz FROM orszagok WHERE Valtopenz NOT LIKE '100%'; -- nem tudom hogy itt mit tudnék kezdeni
 
 SELECT "______________________________________________";
--- SELECT Valtopenz FROM orszagok;
 
 
 --Hány ország területe kisebb Magyarországénál? 
+SELECT "Hány ország területe kisebb Magyarországénál?  ";
+--SELECT Terulet AS magyar FROM orszagok WHERE Orszag = "MAGYARORSZÁG";
+SELECT COUNT(Orszag) FROM orszagok WHERE Terulet < 93036;
+SELECT "______________________________________________";
+
+
 --Melyik a legnagyobb területű ország, és mennyi a területe? 
+SELECT "Melyik a legnagyobb területű ország, és mennyi a területe?   ";
+
+SELECT Orszag, MAX(Terulet) FROM orszagok;
+SELECT "______________________________________________";
+
 --Melyik a legkisebb területű ország, és mennyi a területe?
+SELECT "Melyik a legkisebb területű ország, és mennyi a területe?   ";
+
+SELECT Orszag, MIN(Terulet) FROM orszagok;
+SELECT "______________________________________________";
+
+
 --Melyik a legnépesebb ország, és hány lakosa van?
+SELECT "Melyik a legnépesebb ország, és hány lakosa van?   ";
+
+SELECT Orszag, MAX(Nepesseg*1000) FROM orszagok;
+SELECT "______________________________________________";
+
 --Melyik a legkisebb népességű ország, és hány lakosa van?
+SELECT "Melyik a legkisebb népességű ország, és hány lakosa van?   ";
+
+SELECT Orszag, MIN(Nepesseg*1000) FROM orszagok;
+SELECT "______________________________________________";
+
 --Melyik a legsűrűbben lakott ország, és mennyi a népsűrűsége?
+SELECT "Melyik a legsűrűbben lakott ország, és mennyi a népsűrűsége?   ";
+
+SELECT Orszag,Nepesseg*1000/Terulet, MAX(Nepesseg*1000) FROM orszagok;
+SELECT "______________________________________________";
+
 --Melyik a legritkábban lakott ország, és mennyi a népsűrűsége?
+SELECT "Melyik a legritkábban lakott ország, és mennyi a népsűrűsége?   ";
+
+SELECT Orszag,Nepesseg*1000/Terulet, MIN(Nepesseg*1000) FROM orszagok;
+SELECT "______________________________________________";
+
 --Melyik a legnagyobb afrikai ország és mekkora?
+
+SELECT "Melyik a legnagyobb afrikai ország és mekkora?   ";
+
+SELECT Orszag,MAX(Terulet) FROM orszagok WHERE Foldr_hely LIKE '%Afrika%';
+SELECT "______________________________________________";
+
 --Melyik a legkisebb amerikai ország és hányan lakják?
+SELECT "Melyik a legkisebb amerikai ország és hányan lakják?   ";
+
+SELECT Orszag,MIN(Terulet),Nepesseg*1000 FROM orszagok WHERE Foldr_hely LIKE '%Amerika%';
+SELECT "______________________________________________";
+
 --Melyik az első három legsűrűbben lakott "országméretű" ország (tehát nem város- vagy törpeállam)? 
+SELECT "Melyik az első három legsűrűbben lakott országméretű ország (tehát nem város- vagy törpeállam)?    ";
+
+SELECT Orszag, Nepesseg*1000/Terulet AS nepsuruseg FROM orszagok WHERE Foldr_hely NOT LIKE '%városállam%' AND Foldr_hely NOT LIKE '%törpeállam%' ORDER BY nepsuruseg DESC LIMIT 0,3;
+SELECT "______________________________________________";
+
+
 --Melyik a világ hat legnépesebb fővárosa?
+SELECT "Melyik a legkisebb amerikai ország és hányan lakják?   ";
+
+--passz  nem tom
+SELECT "______________________________________________";
+
 --Melyik tíz ország egy főre jutó GDP-je a legnagyobb? Megoldás...
+SELECT "Melyik a legkisebb amerikai ország és hányan lakják?   ";
+
+SELECT Orszag,MIN(Terulet),Nepesseg*1000 FROM orszagok WHERE Foldr_hely LIKE '%Amerika%';
+SELECT "______________________________________________";
+
 --Melyik tíz ország össz-GDP-je a legnagyobb? Megoldás...
 --Melyik országban a legszegényebbek az emberek? Megoldás...
 --Melyik a 40. legkisebb területű ország? 
